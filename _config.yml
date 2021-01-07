@@ -13,16 +13,16 @@ urls:
       url: /about
     - text: Blog
       url: /blog
-    - text: null
-      url: /gallery
-    - text: null
-      url : /shop
-    - text: Contact
-      url : /contact
-    - text: null
-      url: /styleguide
-    - text: null
-      url: /get-started
+#    - text: null
+#      url: /gallery
+#    - text: null
+#      url : /shop
+#    - text: Contact
+#      url : /contact
+#    - text: null
+#      url: /styleguide
+#    - text: null
+#      url: /get-started
 
 # Edit Author details (For multi authors check _data/authors.yml)
 
@@ -104,7 +104,7 @@ permalink: pretty
 
 # Choose what to show ( can be true or false)
 show_author_work_experiences: true
-show_author_education_details: true
+show_author_education_details: false
 show_author_project_details: true
 
 # pagination of posts
