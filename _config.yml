@@ -1,5 +1,5 @@
-title: devlopr
-subtitle: A Portfolio Jekyll Theme Built for Developers
+title: 꼼꼼하게 채워나가는 개발자의 노트
+subtitle: 혀니로그 since 2021.01
 description: >- # this means to ignore newlines until "baseurl:"
   devlopr-jekyll is a beautiful Jekyll Theme Built For Developers, which is optimized for speed and readability.
 
@@ -13,41 +13,41 @@ urls:
       url: /about
     - text: Blog
       url: /blog
-    - text: Gallery
+    - text: null
       url: /gallery
-    - text: Shop
+    - text: null
       url : /shop
     - text: Contact
       url : /contact
-    - text: Styleguide
+    - text: null
       url: /styleguide
-    - text: Get Started
+    - text: null
       url: /get-started
 
 # Edit Author details (For multi authors check _data/authors.yml)
 
-author_logo: profile.png
-author: John Doe
-author_bio: Hi, my name is John Doe. I built this site using devlopr-jekyll :D
-author_email: "mail@sujaykundu.com"
-author_location: India
-author_website_url: "https://sujaykundu.com"
-typewrite-text: devlopr is a jekyll theme built for developers. You can edit this in _config.yml file
+author_logo: profileimg.jpeg
+author: ChangHyun Song
+author_bio: 꼼꼼하게 하나씩 채워나가는 개발자가 되자
+author_email: "ckdgusdl688@naver.com"
+author_location: South Korea
+author_website_url: "https://github.com/Changhyun-song"
+typewrite-text: 논문 , 데이터 분석 , 파이썬 , 딥러닝 , 머신러닝 , 이미지 데이터 , 의료 데이터 분석 , opencv
 
 # Experiences
 author_work_experiences:
-            - company_name: Google
-              company_logo: google.png
-              company_url: https://google.com
+            - company_name: S대 HCI UX Lab
+              company_logo: null
+              company_url: https://ux.snu.ac.kr
               designation: Software Engineer
-              description: Worked on various Google Products
+              description: Speakergrid Project using Dialogflow and Smart Speaker
               visibility: true
             - company_name: Microsoft
               company_logo: microsoft.png
               company_url: https://microsoft.com
               designation: Azure Developer
               description: Worked on various Azure Cloud Products
-              visibility: true
+              visibility: false
 
 # Education
 author_education_details:
@@ -56,32 +56,32 @@ author_education_details:
                 college_url: https://mit.org
                 college_degree: CS Engineer
                 description: Bachelor of Technology
-                visibility: true
+                visibility: false
 
 # Projects
 author_project_details:
               - project_thumbnail: gamershub.png
-                project_title: Gamers Hub
-                project_description: A Platform built for Gamers and Game Devs
-                project_url: https://gamershub.in
-                visibility: true
+                project_title: Kinect 센서와 모터의 PI제어를 활용한 새로움 홈 헬스 디바이스
+                project_description: 모터의 힘으로 중량을 추가할 수 있고 Kinect 센서를 활용하여 사람의 모션을 감지해 운동 능력을 향상시킬 수 있다.
+                project_url: https://youtu.be/4tAAaIP9Iuc
+                visibility: True
               - project_thumbnail: hack4r.PNG
                 project_title: Hack4r
                 project_description: A Platform built for Hackers and Penetration Testers
                 project_url: https://hack4r.com
-                visibility: true
+                visibility: false
 
 # social links
-twitter_username: johndoe
-github_username:  sujaykundu777
-facebook_username: johndoe
-linkedin_username: johndoe
-behance_username: johndoe
-instagram_username: johndoe
-medium_username: johndoe
-telegram_username: johndoe
-dribbble_username: johndoe
-flickr_username: johndoe
+twitter_username: null
+github_username:  Changhyun-song
+facebook_username: null
+linkedin_username: null
+behance_username: null
+instagram_username: s___c__h
+medium_username: null
+telegram_username: null
+dribbble_username: null
+flickr_username: null
 
 #for comments ( we got Disqus and Hyvor Commenting, uncomment the one you want to use )
 
@@ -89,13 +89,13 @@ flickr_username: johndoe
 hyvor_talk_website_id: 476
 
 # wakatime username (coding activity)
-wakatime_username: sujaykundu777
+wakatime_username: null
 
 # mailchimp embedded form url (newsletter):
-mailchimp_form_url: https://sujaykundu.us10.list-manage.com/subscribe/post?u=50bab1c85eae24ecfb0f68361&amp;id=3a2dd721d0
+mailchimp_form_url: null
 
 # formspree (contact form)
-formspree_email: johndoe@gmail.com
+formspree_email: zzxx9775@gmail.com
 
 # syntax highlighter
 markdown: kramdown
