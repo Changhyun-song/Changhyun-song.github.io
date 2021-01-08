@@ -14,8 +14,8 @@ baseurl: ''
 url: https://Changhyun-song.github.io
 plugins_dir:
 - jekyll-sitemap
-cover: "/assets/backgroundpic.png"
-logo: "/assets/logopic.jpeg"
+cover: "/assets/back.png"
+logo: "/assets/logopica.jpeg"
 markdown: kramdown
 highlighter: rouge
 paginate: 5
@@ -44,11 +44,11 @@ social:
   desc: Fork me on GitHub
   share: false
 protocols:
-  fb_image: "/assets/logopic.jpg"
+  fb_image: "/assets/logopica.jpg"
   fb_image_width: 612
   fb_image_height: 605
   fb_image_type: image/png
-  twitter_image: "/assets/logopic.jpg"
+  twitter_image: "/assets/logopica.jpg"
   os_repo: https://github.com/bencentra/centrarium.com
   os_rcs_type: git
   os_src: git@github.com:bencentra/centrarium.com.git

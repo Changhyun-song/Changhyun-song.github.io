@@ -1,38 +1,38 @@
----
-layout: page
-title: About
-permalink: /about/
----
+I"34<p><img src="/assets/profileimg.jpeg" title="Profile Picture" class="profile" /></p>
 
-<img src="{{ site.baseurl }}/assets/profileimg.jpeg" title="Profile Picture" class="profile">
-
-<br>
+<p><br /></p>
 
 <center><h2>꼼꼼하게 다양하게</h2>꼼꼼한 논문 리뷰, 파이썬, 이미지 데이터 분석, 딥러닝, 머신러닝</center>
 
-<br>
+<p><br /></p>
 
-<span class="page-divider">
+<p><span class="page-divider">
   <span class="one"></span>
   <span class="two"></span>
-</span>
+</span></p>
 
 <h2><center>경험</center></h2>
 
-* 2019 . 11 ~ 2020 . 02 <a href="#JPI">Ubutu환경에서 딥러닝연구 with 오정현 교수님</a>
-
-* 2020 . 02 ~ 2020 . 06 <a href="#JPI">캡스톤 설계 및 졸업 논문 준비</a>
-
-* 2020 . 07 ~ 2020 . 09 <a href="#JPI">교내 대회 준비(KWIX/MY 캡스톤 경진대회)</a>
-
-* 2020 . 09. 01 ~ 2020 . 10 . 30 <a href="#JPI">S대학교 UX Lab 인턴</a>
-
-* 2020 . 11 . 13 <a href="#JPI">MY 캡스톤 경진대회 우수상 수상</a>
-
-* 2020 . 12 . 24 <a href="#JPI">창업 경진 대회 최우수상 수상</a>
-
-
-
+<ul>
+  <li>
+    <p>2019 . 11 ~ 2020 . 02 <a href="#JPI">Ubutu환경에서 딥러닝연구 with 오정현 교수님</a></p>
+  </li>
+  <li>
+    <p>2020 . 02 ~ 2020 . 06 <a href="#JPI">캡스톤 설계 및 졸업 논문 준비</a></p>
+  </li>
+  <li>
+    <p>2020 . 07 ~ 2020 . 09 <a href="#JPI">교내 대회 준비(KWIX/MY 캡스톤 경진대회)</a></p>
+  </li>
+  <li>
+    <p>2020 . 09. 01 ~ 2020 . 10 . 30 <a href="#JPI">S대학교 UX Lab 인턴</a></p>
+  </li>
+  <li>
+    <p>2020 . 11 . 13 <a href="#JPI">MY 캡스톤 경진대회 우수상 수상</a></p>
+  </li>
+  <li>
+    <p>2020 . 12 . 24 <a href="#JPI">창업 경진 대회 최우수상 수상</a></p>
+  </li>
+</ul>
 
 <!-- * 2018 . 6 ~ 2018 . 7 <a href="#javaCamp">Java 뿌수기 캠프 with 갓호준 교수님</a>
 
@@ -62,30 +62,36 @@ permalink: /about/
 
 * 2020 . 7 ~ 2020 . 8 [우아한테크캠프 참여](https://zoomkoding.github.io/%ED%9A%8C%EA%B3%A0/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BA%A0%ED%94%84/2020/07/26/woowa-tech-camp-mid-term.html) -->
 
-<br>
+<p><br /></p>
 
-<span class="page-divider">
+<p><span class="page-divider">
   <span class="one"></span>
   <span class="two"></span>
-</span>
+</span></p>
 
 <h2><center>프로젝트</center></h2>
 
 <h3 id="javaCamp"> Ubutu환경에서 딥러닝연구 with 오정현 교수님 </h3>
 
-**딥러닝 연구에 대해서**
-* 내용 : 교수님이 주신 다양한 과제를 통해 딥러닝에 대한 기초와 영상처리에 대한 기초를 구현하였다.
-* 기간 : 2019. 11 ~ 2020. 02
-    
-**배운점** 
-* 딥러닝 기초 지식
-* 리눅스 환경 공부
-* 다양한 영상 처리 기법 및 지식 공부
+<p><strong>딥러닝 연구에 대해서</strong></p>
+<ul>
+  <li>내용 : 교수님이 주신 다양한 과제를 통해 딥러닝에 대한 기초와 영상처리에 대한 기초를 구현하였다.</li>
+  <li>기간 : 2019. 11 ~ 2020. 02</li>
+</ul>
 
-**느낀점**
-- 처음으로 딥러닝이란 과목에 대해 빠지게 되었다. 실제로 졸업작품에서도 사용하고 싶을 만큼 매력적인 분야였고 우분투 환경 설정부터 모든게 낯선 시작이였지만 학부 연구생으로써 잘 마무리 할 수 있었고 많은 것을 배울 수 있었던 시기였다.
+<p><strong>배운점</strong></p>
+<ul>
+  <li>딥러닝 기초 지식</li>
+  <li>리눅스 환경 공부</li>
+  <li>다양한 영상 처리 기법 및 지식 공부</li>
+</ul>
 
-<br>
+<p><strong>느낀점</strong></p>
+<ul>
+  <li>처음으로 딥러닝이란 과목에 대해 빠지게 되었다. 실제로 졸업작품에서도 사용하고 싶을 만큼 매력적인 분야였고 우분투 환경 설정부터 모든게 낯선 시작이였지만 학부 연구생으로써 잘 마무리 할 수 있었고 많은 것을 배울 수 있었던 시기였다.</li>
+</ul>
+
+<p><br /></p>
 
 <!-- <h3 id="JPI">X-ray 영상 그리드 라인 제거 연구 참여(JPI 산학 연구)</h3>
 
@@ -206,3 +212,4 @@ permalink: /about/
 [Baekjoon]: https://www.acmicpc.net/user/zoomkoding
 
 [Codeforces]: https://codeforces.com/profile/zoomkoding?csrf_token=60ee10c8fa3b2fec9cc92f0c5ee4fef1 -->
+:ET
