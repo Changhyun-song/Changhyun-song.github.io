@@ -1,132 +1,237 @@
-### devlopr-jekyll - A Beautiful Jekyll Theme Built for Developers
+# Centrarium [![Circle CI](https://circleci.com/gh/bencentra/centrarium/tree/master.svg?style=svg)](https://circleci.com/gh/bencentra/centrarium/tree/master)
 
-[![Gem Version](https://badge.fury.io/rb/devlopr.svg)](https://badge.fury.io/rb/devlopr)![workflow-badge](https://github.com/sujaykundu777/devlopr-jekyll/workflows/deploy/badge.svg)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/4232ac2b-63e0-4c78-92e0-e95aad5ab8c3/deploy-status)](https://app.netlify.com/sites/devlopr/deploys)
-![](https://ruby-gem-downloads-badge.herokuapp.com/devlopr?type=total&color=brightgreen&style=plastic)
-[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+A simple yet classy theme for your Jekyll website or blog. Customizable to fit your style or brand.
 
-Just a little something I'm using to jump start a site refresh. I like to think of it as a starter for building your own Jekyll site. I purposely keep the styling minimal and bare to make it easier to add your own flare and markup.
-The Theme supports both Light and Dark Style. Highly Customizable and No Hosting or Maintainence Cost is required !
+Built with these awesome libraries:
+* [Bourbon][bourbon]
+* [Neat][neat]
+* [Bitters][bitters]
+* [Refills][refills]
+* [Font Awesome][fontawesome]
+* [HighlightJS][highlightjs]
+* [Lightbox][lightbox]
 
-### [Installation Guide](https://devlopr.netlify.app/get-started)
+Here's a [demo](http://bencentra.com/centrarium). It also works on [GitHub Pages](http://bencentra.github.io/centrarium/). I also use it for [my own website][bencentra].
 
-![devlopr jekyll](https://github.com/sujaykundu777/devlopr-jekyll/blob/master/assets/img/screenshot.PNG?raw=true)
+Inspired by dirkfabisch's [Mediator](https://github.com/dirkfabisch/mediator) theme, which I previously used for my own blog, as well as [Type Theme](http://rohanchandra.github.io/type-theme/).
 
-devlopr uses Markdown Files to create data like Blog Posts, Gallery, Shop Products etc. No external database is required.
+Cover image by Chris M. Morris ([flickr][cover]).
 
-### Deploy your devlopr-jekyll blog - One Click Deploy
+## Features
 
-[![Deploy with ZEIT Now](https://zeit.co/button)](https://zeit.co/new/project?template=https://github.com/sujaykundu777/devlopr-jekyll)
-[![Deploy with Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/sujaykundu777/devlopr-jekyll)
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/sujaykundu777/devlopr-jekyll)
+This theme comes with a number of features, including:
+* Easily customizable fonts and colors
+* Cover images for your homepage and blog posts
+* Pagination enabled by default
+* Archiving of posts by categories and tags
+* Syntax highlighting for code snippets
+* Disqus integration for post comments
+* Lightbox for viewing full-screen photos and albums
+* Google Analytics with custom page name tracking
+* Social media integration (Twitter, Facebook, LinkedIn, GitHub, and more)
 
-### Demo (Hosted Apps)
+## Installation
 
-- Github Pages Demo - [here](https://sujaykundu.com)
-- Firebase Demo - [here](https://devlopr.web.app)
-- Netlify Demo - [here](https://devlopr.netlify.com)
-- Zeit Now Demo - [here](https://devlopr-jekyll.now.sh)
-- Heroku Demo - [here](https://devlopr-jekyll.herokuapp.com)
-- AWS Amplify Demo - [here](https://master.d3t30wwddt6jju.amplifyapp.com/)
+If you're just getting started with Jekyll, you can use this repository as a starting point for your own site. Just [download this project](https://github.com/bencentra/centrarium/archive/master.zip) and add all the files to your project. Add your blog posts to the `posts/` directory, and create your pages with the proper Jekyll front matter (see `posts.html` for an example).
 
-#### Features :
+If your site already uses Jekyll, follow these steps:
 
-- Local CMS Admin Support using [Jekyll Admin](https://jekyll.github.io/jekyll-admin/)
-- Onine CMS Admin Support using [Netlify CMS](https://sujaykundu.com/jekyll/2020/05/24/how-to-setup-netlify-cms-with-github-hosted-devlopr-blog/#/), Forestry, [Siteleaf](https://sujaykundu.com/jekyll/2019/05/22/using-siteleaf/), CloudCannon.
-- Supports Latest [Jekyll 4.x](https://jekyllrb.com) and [Bundler](https://bundler.io)
-- Stylesheet built using Sass
-- Comments using [Hyvor](https://talk.hyvor.com/) and [Disqus](https://disqus.com/)
-- SEO-optimized
-- Real Time Search using [Algolia](https://algolia.com/)
-- Sell Stuff (Ecommerce) in your Blog using [Snipcart](https://snipcart.com/)
-- Send Newsletters using [Mailchimp](https://mailchimp.com/)
-- Contact Forms using [Formspree](https://formspree.io/)
-- Coding Activity using [Wakatime](https://wakatime.com/)
-- Hosting Support for [Github Pages](https://pages.github.com), [Netlify](https://netlify.com), [Zeit](https://zeit.co), [Heroku](https://heroku.com), [AWS Amplify](aws.amplify.com), [Firebase](https://firebase.com)
-- CI/CD Support using [Travis CI](https://sujaykundu.com/blog/posts/deploy-jekyll-blog-using-github-pages-and-travis-ci/), Buddy , Circle CI
+1. Replace the files in the `_includes`, `_layouts`, and `_sass` directories with those from this project.
+2. Replace your `index.html` with the one from this project, and copy over the `posts.html` file as well.
+3. Copy the contents of the `_config.yml` from this project in to yours, and update the necessary information.
 
-#### Jekyll Admin
-You can easily manage the site locally using the Jekyll admin : [http://localhost:4000/admin](http://localhost:4000/admin)
+Don't forget to install Jekyll and other dependencies:
+```bash
+# cd into project directory
+cd centrarium
+# install Bundler if you don't have it already
+gem install bundler
+# install jekyll, jekyll-archives, jekyll-sitemap, and jekyll-paginate
+bundle install
+```
 
-![Jekyll Admin](https://github.com/sujaykundu777/devlopr-jekyll/blob/master/assets/img/jekyll-admin.PNG?raw=true)
+## Updating Styles
 
-#### Search Configuration
+If you want change the CSS of the theme, you'll probably want to check out these files in the `_sass/` directory:
 
-Replace *_algolia_api_key* content with your algolia's app Admin API key and run to index blog posts:
+* `base/_variables.scss`: Common values found throughout the project, including base font size, font families, colors, and more.
+* `base/_typography.scss`: Base typography values for the site (see `typography.html` for a demonstration)
+* `_layout.scss`: The primary styles for the layout and design of the theme.
 
-`jekyll algolia`
+### Important Variables
 
-For more info : [Docs here](https://sujaykundu.com/jekyll/2020/06/18/how-to-add-realtime-search-to-your-devlopr-jekyll-blog-using-jekyll-algolia/)
+Here are the important variables from `base/_variables.scss` you can tweak to customize the theme to your liking:
 
-## Release Changes :
+* `$base-font-family`: The font-family of the body text. Make sure to `@import` any new fonts!
+* `$heading-font-family`: The font-family of the headers. Make sure to `@import` any new fonts!
+* `$base-font-size`: The base font-size. Defaults to $em-base from Bourbon (`bourbon/settings/_px-to-em.scss`).
+* `$base-font-color`: The color for the body text.
+* `$action-color`: The color for links in the body text.
+* `$highlight-color`: The color for the footer and page headers (when no cover image provided).
 
-You can check out the latest changes [here](https://www.buymeacoffee.com/p/57109)
+## Configuration
 
-## Using Docker :
+All configuration options can be found in `_config.yml`.
 
-Building the Image :
+### Site Settings
 
-`docker build -t my-devlopr-jekyll-blog .`
+* __title:__ The title for your site. Displayed in the navigation menu, the `index.html` header, and the footer.
+* __subtitle:__ The subtitle of your site. Displayed in the `index.html` header.
+* __email:__ Your email address, displayed with the Contact info in the footer.
+* __name:__ Your name. _Currently unused._
+* __description:__ The description of your site. Used for search engine results and displayed in the footer.
+* __baseurl:__ The subpath of your site (e.g. /blog/).
+* __url:__ The base hostname and protocol for your site.
+* __cover:__ The relative path to your site's cover image.
+* __logo:__ The relative path to your site's logo. Used in the navigation menu instead of the title if provided.
 
-Running the container :
+### Build Settings
 
-`docker run -d -p 4000:4000 -it --volume="$PWD:/srv/jekyll" --name "my_blog" my-devlopr-jekyll-blog:latest jekyll serve --watch`
+* __markdown:__ Markdown parsing engine. Default is kramdown.
+* __paginate:__ Number of posts to include on one page.
+* __paginate_path:__ URL structure for pages.
+* __inter_post_navigation:__ Whether to render links to the next and previous post on each post.
 
-## Using Docker Compose :
+### Archive Settings
 
-### Development :
+Although this theme comes with a combined, categorized archive (see `posts.html`), you can enable further archive creation thanks to [jekyll-archives][archives]. Support for category and tag archive pages is included, but you can also add your own archive pages for years, months, and days.
 
-You can run the app in development mode : (your changes will be reflected --watch moded)
+To change archive settings, see the __jekyll-archives__ section of `_config.yml`:
 
-Serve the site at http://localhost:4000 :
+```yml
+jekyll-archives:
+  enabled:
+    - categories
+    - tags
+  layout: 'archive'
+  permalinks:
+    category: '/category/:name/'
+    tag: '/tag/:name/'
+```
 
-`docker-compose -f docker-compose-dev.yml up --build --remove-orphans`
+To fully disable the archive, remove the __jekyll-archives__ section AND remove it from the __gems__ list.
 
-### Production :
+__NOTE:__ the Jekyll Archive gem is NOT included with GitHub pages! Disable the archive feature if you intend to deploy your site to GitHub pages. [Here is a guide](http://ixti.net/software/2013/01/28/using-jekyll-plugins-on-github-pages.html) on how you can use the `jekyll archive` gem with GitHub pages. The general gist: compile the Jekyll site locally and then push that compiled site to GitHub.
 
-You can run the app in production mode : (your changes will be reflected --watch moded)
+A sitemap is also generated using [jekyll-sitemap][sitemap].
 
-Serve the site at http://localhost:4000 :
+### Syntax Highlighting Settings
 
-`docker-compose -f docker-compose-prod.yml up --build --remove-orphans`
+Inside of a post, you can enable syntax highlighting with the `{% highlight <language> %}` Liquid tag. For example:
 
-Stop the app :
-`docker-compose -f docker-compose-prod.yml down`
-Once everything is good and ready to go live -
+```
+{% highlight javascript %}
+function demo(string, times) {
+  for (var i = 0; i < times; i++) {
+    console.log(string);
+  }
+}
+demo("hello, world!", 10);
+{% endhighlight %}
+```
 
-`docker-compose -f docker-compose-prod.yml up --build --detach`
+You can change the [HighlightJS theme][highlightjs_theme] in `_config.yml`:
 
-## Contributors:
+```yml
+highlightjs_theme: "monokai_sublime"
+```
 
-This project exists thanks to all the people who contribute.
+### Disqus Settings
 
-Contributions are more than just welcome. Fork this repo and create a new branch, then submit a pull request
+You can enable [Disqus][disqus] comments for you site by including one config option:
 
-- 1.Fork it [http://github.com/sujaykundu777/devlopr-jekyll/fork](http://github.com/sujaykundu777/devlopr-jekyll/fork )
+* __disqus_shortname:__ Your Disqus username. If the property is set, Disqus comments will be included with your blog posts.
 
-- 2.Create your feature branch
-`git checkout -b my-new-feature`
+If you want to disable Disqus for only a specific page, add __disqus_disabled: true__ to the page's front matter.
 
-- 3.Commit your changes
-`git commit -am 'Add some feature'`
+### Google Analytics Settings
 
-- 4.Push to the branch
-`git push origin my-new-feature`
+You can enable basic [Google Analytics][ga] pageview tracking by including your site's tracking ID:
 
-- 5.Create new Pull Request
+* __ga_tracking_id__: The Tracking ID for your website. You can find it on your Google Analytics dashboard. If the property is set, Google Analytics will be added to the footer of each page.
 
-### Backers
+### Social Settings
 
-Thanks to all our Backers ! 🙏 [Become a Backer](https://opencollective.com/devlopr-jekyll#backer)
+Your personal social network settings are combined with the social sharing options. In the __social__ section of `_config.yml`, include an entry for each network you want to include. For example:
 
-<a href="https://opencollective.com/devlopr-jekyll#backers" target="_blank"><img src="https://opencollective.com/devlopr-jekyll/backers.svg?width=890" /></a>
+```yml
+social:
+  - name: Twitter                         # Name of the service
+    icon: twitter                         # Font Awesome icon to use (minus fa- prefix)
+    username: TheBenCentra                # (User) Name to display in the footer link
+    url: https://twitter.com/TheBenCentra # URL of your profile (leave blank to not display in footer)
+    desc: Follow me on Twitter            # Description to display as link title, etc
+    share: true                           # Include in the "Share" section of posts
+```
 
-### For Help :
+### Social Protocols
 
-You can contact me, if you need any help via [Email](mailto:sujaykundu777@gmail.com). If you like the project. Don't forget to :star: !
+Using the Open Graph Protocol or Twitter Card metadata, you can automatically set the images and text used when people share your site on Twitter or Facebook. These take a bit of setup, but are well worth it. The relevant fields are at the end of the `_config.yml` file.
 
-## Licence
+Also there is another protocol, the Open Source protocol, for saying where your site is hosted if the source is open. This helps develops more easily see your code if they are interested, or if they have issues. For more, see http://osprotocol.com.
 
-The theme is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT). You can do anything you want, including projects for your clients, as long as you mention an attribution back (credit links in footer). See the [Licence](https://github.com/sujaykundu777/devlopr-jekyll/blob/master/LICENSE) file
+### Category Descriptions
 
-I understand that sometimes footer links or any links to external websites are not convenient, so you have the option to remove credits/footer links by becoming a [Backer](https://opencollective.com/devlopr-jekyll#backer).
+You can enhance the `posts.html` archive page with descriptions of your post categories. See the __descriptions__ section of `_config.yml`:
+
+```yml
+# Category descriptions (for archive pages)
+descriptions:
+  - cat: jekyll
+    desc: "Posts describing Jekyll setup techniques."
+```
+
+### Custom Page-Specific Javascript
+
+You can add page-specific javascript files by adding them to the top-level `/js` directory and including the filename in the __custom_js__ page's configuration file:
+
+```yml
+# Custom js (for individual pages)
+---
+layout: post
+title:  "Dummy Post"
+date:   2015-04-18 08:43:59
+author: Ben Centra
+categories: Dummy
+custom_js:
+- Popmotion
+- Vue
+---
+```
+
+The `/js/` directory would contain the corresponding files:
+
+```bash
+$ ls js/
+Popmotion.js Vue.js
+```
+
+## Contributing
+
+Want to help make this theme even better? Contributions from the community are welcome!
+
+Please follow these steps:
+
+1. Fork/clone this repository.
+2. Develop (and test!) your changes.
+3. Open a pull request on GitHub. A description and/or screenshot of changes would be appreciated!
+4. I ([Ben Centra](https://github.com/bencentra)) will review and merge the pull request.
+
+## License
+
+MIT. See [LICENSE.MD](https://github.com/bencentra/centrarium/blob/source/LICENSE.md).
+
+[bencentra]: http://bencentra.com
+[bourbon]: http://bourbon.io/
+[neat]: http://neat.bourbon.io/
+[bitters]: http://bitters.bourbon.io/
+[refills]: http://refills.bourbon.io/
+[fontawesome]: http://fortawesome.github.io/Font-Awesome/
+[highlightjs]: https://highlightjs.org/
+[highlightjs_theme]: https://highlightjs.org/static/demo/
+[lightbox]: http://lokeshdhakar.com/projects/lightbox2/
+[cover]: https://www.flickr.com/photos/79666107@N00/3796678503/in/photolist-6MuYfc-61Rtft-8XzPmY-a6Cozm-54eSMs-6oMJmk-aepZQq-9YkPHp-fiAEGE-dVP4Z5-oxPyJP-atKUFJ-9YHWA5-9YF2f2-9YF2gR-9YHVGN-9YHVvs-qZYYQ6-4JqP2i-a2peGy-9YHVUm-9YHVF7-9YHVCL-9YF3NK-cYteMo-aiPmb9-69dtAi-9YF21x-4aWpmn-7SLiUL-77pqVX-8vXbYv-4HGDSH-a2h5P1-8LsZrQ-9aj1ez-auPZ7q-9YHVMd-9YF2bi-9YF23D-8LpWpn-9an6KL-9YHVZL-dqZ3Cz-2GuvnX-9YHWUo-9YHVWd-p5Roh5-i1zTbv-6sYrUT
+[disqus]: https://disqus.com/
+[ga]: http://www.google.com/analytics/
+[archives]: https://github.com/jekyll/jekyll-archives
+[sitemap]: https://github.com/jekyll/jekyll-sitemap
