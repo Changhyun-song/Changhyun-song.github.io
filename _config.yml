@@ -14,8 +14,8 @@ baseurl: ''
 url: https://Changhyun-song.github.io
 plugins_dir:
 - jekyll-sitemap
-cover: "/assets/header_image.jpeg"
-logo: "/assets/Crewcials.jpeg"
+cover: "/assets/backgroundpic.jpeg"
+logo: "/assets/logopic.jpg"
 markdown: kramdown
 highlighter: rouge
 paginate: 5
