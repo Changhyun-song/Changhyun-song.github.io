@@ -86,9 +86,110 @@ x_data와 y_data를 중간에 확인해보면 총 267개의 이미지 형태인 
 shape를 통해 마지막으로 확인해보면 train 셋 240개, val 셋 27개씩 만들어진것을 확인할 수 있다.
 ![사진](/assets/ct-6.png)
 
+## 2. lung data 추출하기
 
+우선 필요한 패키지와 함수들을 import 합니다. 
+```python
+#필요한 패키지,함수,변수 import
+import numpy as np
+import matplotlib.pyplot as plt
 
+from keras.layers import Input, Activation, Conv2D, Flatten, Dense, MaxPooling2D, Dropout, Add, LeakyReLU, UpSampling2D
+from keras.models import Model, load_model
+from keras.callbacks import ReduceLROnPlateau
+```
 
+그 뒤에 numpy를 이용해 npy파일로 만들어 놓은 x_train, x_val, y_train, y_val 파일들을 load 합니다.
+```python
+x_train = np.load('dataset/x_train.npy')
+y_train = np.load('dataset/y_train.npy')
+x_val = np.load('dataset/x_val.npy')
+y_val = np.load('dataset/y_val.npy')
+```
+각각을 살펴보면 다음과 같이 나온다.
+
+![사진](/assets/ct-7.png)
+
+train data 240개 val data는 27개씩 있다.
+
+인공지능 모델로 사용하는 것은 **Convolutional Encoder-Decoder** 이다.
+간단하게 말하면 CNN으로 이루어진 인코더-디코더 형태이다.
+
+![사진](/assets/ct-8.png)
+
+Encoder는 차원을 축소해서 핵심 요소만 뽑는 것을 말하고 Decoder는 반대로 압축된 정보로부터 차원을 확장을 하면서 원하는 정보로 복원하는 것을 말한다.
+여기서 위 그림과 같이 Input에는 CT이미지를 넣고 Output에는 폐의 영역만 흰색인 마스크 이미지로 뽑을 것입니다.
+
+Encoder부분에서는 Downsampling을 하는데 CNN에서 주로 사용하는 MaxPooling2D를 사용할 것이다.
+MaxPooling2D를 통해 차원을 축소한다.
+
+Decoder부분에서는 Upsampling을 하는데 여기서 Upsampling2D는 반대로 차원을 확장하는 것이다.
+
+![사진](/assets/ct-9.png)
+
+위와 같이 행렬이 늘어나면서 0으로 채워주는 Upsampling, 반대로 행렬이 줄어드는 Downsampling을 보여주고 있다. 물론 0으로 채우는 것 외에 다양한 Upsampling 방법이 존재한다.
+
+### 2-1. Model 구현
+```python
+#DownSampling
+inputs = Input(shape=(256,256,1))
+
+net = Conv2D(32, kernel_size=3, activation='relu', padding='same')(inputs)
+net = MaxPooling2D(pool_size=2, padding='same')(net)
+
+net = Conv2D(64, kernel_size=3, activation='relu', padding='same')(net)
+net = MaxPooling2D(pool_size=2, padding='same')(net)
+
+net = Conv2D(128, kernel_size=3, activation='relu', padding='same')(net)
+net = MaxPooling2D(pool_size=2, padding='same')(net)
+
+net = Dense(128, activation='relu')(net)
+#UpSampling
+net = UpSampling2D(size=2)(net)
+net = Conv2D(128, kernel_size=3, activation='sigmoid', padding='same')(net)
+
+net = UpSampling2D(size=2)(net)
+net = Conv2D(64, kernel_size=3, activation='sigmoid', padding='same')(net)
+
+net = UpSampling2D(size=2)(net)
+outputs = Conv2D(1, kernel_size=3, activation='sigmoid', padding='same')(net)
+
+model = Model(inputs=inputs, outputs=outputs)
+
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['acc','mse'])
+
+model.summary()
+```
+Model은 위와 같이 만들어준다. Model을 확인해보면
+
+![사진](/assets/ct-10.png)
+Model을 확인해보면 MaxPooling2D를 통해 256,256에서 128,128으로 줄고 계속 줄어 32,32까지 줄어든다.
+그 후 Upsamping2D를 통해 256,256 까지 차원을 다시 확장한다.
+이제 Training을 해주면 된다.
+```python
+history = model.fit(x_train, y_train, validation_data=(x_val, y_val), epochs=100, batch_size=32,callbacks=[ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=10, verbose=1,mode='auto', min_lr=1e-05)])
+```
+
+epochs를 100으로 설정한 뒤에 학습이 끝나고 loss, acc, val_loss, val_acc를 확인해본다.
+
+![사진](/assets/ct-11.png)
+
+loss는 이상적으로 내려가는 것을 확인할 수 있고 반대로 정확도는 올라가므로 학습이 잘 된것을 확인할 수 있다.
+```python
+preds = model.predict(x_val)
+fig, ax = plt.subplots(len(x_val), 3, figsize=(10,100))
+
+for i, pred in enumerate(preds):
+    ax[i, 0].imshow(x_val[i].squeeze(), cmap='gray')       
+    ax[i, 1].imshow(y_val[i].squeeze(), cmap='gray')
+    ax[i, 2].imshow(pred.squeeze(), cmap='gray')
+```
+이제 predict를 통해 학습된 모델로 lung data를 잘 추출하는지 확인해본다.
+
+![사진](/assets/ct-12.png)
+
+결과값을 확인해보면 맨 왼쪽은 input으로 CT 이미지이고 가운데 있는 이미지는 실제 mask된 이미지이고 맨 오른쪽에 있는 이미지는 학습된 모델이 예측한 lung data 입니다.
+두번째와 세번쨰를 비교했을 때 굉장히 비슷하게 잘 나오기 때문에 예측이 잘 된것을 확인할 수 있었다.
 
 
 
