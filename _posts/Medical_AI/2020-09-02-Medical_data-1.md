@@ -1,0 +1,208 @@
+---
+title: "[Medical_AI] opencv를 이용한 python project(이미지 슬라이드쇼 만들기)"
+excerpt: "matplotlib을 사용하여 이미지 실습을 진행한다."
+
+date: 2020-09-02
+categories:
+ - Medical_AI
+tags:
+  - medical_ai
+  - opencv
+  - segmentation
+  - deeplearning
+  - vision
+layout: jupyter
+search: true
+
+# 목차
+toc: true  
+toc_sticky: true 
+
+use_math: true
+---
+
+## 1. 데이터 전처리
+
+이번에는 CT Data에서 필요한 이미지인 폐 영역만 골라내는 segmentation을 해보도록 하겠습니다.
+먼저 데이터 셋은 kaggle에서 가져오시면 됩니다.
+[Dataset](https://www.kaggle.com/kmader/finding-lungs-in-ct-data?select=2d_masks.zip "데이터 셋 받는 주소")
+
+여기서 2d_images.zip 파일과 2d_masks.zip 파일을 받아오시면 됩니다!
+다운로드 받은 파일은 다음과 같이 원래 CT 이미지들이 모여있는 image 폴더와 폐 부분만 표시되어 있는 mask된 사진만 모여있는 폴더입니다.
+
+<p align="center"><img src="https://github.com/Changhyun-song/Changhyun-song.github.io/blob/main/_posts/images/medical_ai/medical_ai1/medicalai1-1.png?raw=1" width = "800" ></p>
+
+**2d_images Dataset**
+
+<p align="center"><img src="https://github.com/Changhyun-song/Changhyun-song.github.io/blob/main/_posts/images/medical_ai/medical_ai1/medicalai1-2.png?raw=1" width = "800" ></p>
+
+**2d_masks Dataset**
+
+보시면 이미지파일이 tif 형식으로 되어 있습니다. Data 분야를 공부하면 할수록 느끼는 것이지만 처음 Data를 전처리하는 과정이 전체 과정의 절반이상을 차지한다고 말하는 것처럼 전처리 과정은 정확한 결과 값을 알기위해선 매우중요합니다!
+따라서 우리는 이 tif 이미지들을 먼저 학습하기 쉬운 .npy 형식의 파일로 만들것입니다.
+
+### 1-1.필요한 패키지와 함수 변수 import 하기
+Jupyter notebook을 키기 전에 필요한 패기지들을 다운로드 받아줍니다. 그 후 아래코드를 넣어주시면 됩니다.
+```
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.model_selection import train_test_split
+from skimage.io import imread
+from skimage.transform import pyramid_reduce, resize
+
+import os, glob
+```
+
+### 1-2.list 형식으로 img_list와 mask_list 생성
+**glob**
+glob.glob 를 사용하여 우선 폴더에 있는 모든 파일명을 /*를 사용하여 모두 리스트 형식으로 불러옵니다.
+```
+img_list = sorted(glob.glob('2d_images/*.tif'))
+mask_list = sorted(glob.glob('2d_masks/*.tif'))
+
+print(len(img_list), len(mask_list))
+```
+<p align="center"><img src="https://github.com/Changhyun-song/Changhyun-song.github.io/blob/main/_posts/images/medical_ai/medical_ai1/medicalai1-3.png?raw=1" width = "800" ></p>
+이렇게 img_list와 mask_list에 list 형식으로 폴더에 있는 모든 파일명들을 불러온 뒤 저장합니다.
+
+### 1-3. Array 형태로 만들고 array 형태의 이미지 확인하기
+```
+IMG_SIZE = 256
+
+x_data, y_data = np.empty((2, len(img_list), IMG_SIZE, IMG_SIZE, 1), dtype=np.float32)
+
+for i, img_path in enumerate(img_list):
+    img = imread(img_path)
+    img = resize(img, output_shape=(IMG_SIZE, IMG_SIZE, 1), preserve_range=True)
+    x_data[i] = img
+    
+for i, img_path in enumerate(mask_list):
+    img = imread(img_path)
+    img = resize(img, output_shape=(IMG_SIZE, IMG_SIZE, 1), preserve_range=True)
+    y_data[i] = img
+    
+y_data /= 255.
+
+fig, ax = plt.subplots(1, 2)
+ax[0].imshow(x_data[12].squeeze(), cmap='gray')
+ax[1].imshow(y_data[12].squeeze(), cmap='gray')
+```
+우선 imread 함수를 통해서 img_list에 있는 파일을 하나씩 불러오고 Array형태로 불러오고 img에 하나씩 저장합니다. 그 후 resize를 통해 (256,256,1) 형태로 만들어 줍니다.
+
+<p align="center"><img src="https://github.com/Changhyun-song/Changhyun-song.github.io/blob/main/_posts/images/medical_ai/medical_ai1/medicalai1-4.png?raw=1" width = "800" ></p>
+
+x_data와 y_data를 중간에 확인해보면 총 267개의 이미지 형태인 (256,256,1)이 되는 것을 확인할 수 있다. 그리고 마지막에 squeeze 함수를 통해 1차원 배열로 바꿔 imshow 함수로 이미지를 확인한다.
+이미지 형태로 잘 나오는 것을 확인할 수 있다.
+<p align="center"><img src="https://github.com/Changhyun-song/Changhyun-song.github.io/blob/main/_posts/images/medical_ai/medical_ai1/medicalai1-5.png?raw=1" width = "800" ></p>
+
+마지막으로 sklearn 패키지에서 train_test_split 함수를 통해 데이터셋에서 x_train, x_val, y_train, y_val 셋을 만들어준뒤에 저장한다.
+shape를 통해 마지막으로 확인해보면 train 셋 240개, val 셋 27개씩 만들어진것을 확인할 수 있다.
+<p align="center"><img src="https://github.com/Changhyun-song/Changhyun-song.github.io/blob/main/_posts/images/medical_ai/medical_ai1/medicalai1-6.png?raw=1" width = "800" ></p>
+
+## 2. lung data 추출하기
+
+우선 필요한 패키지와 함수들을 import 합니다. 
+```python
+#필요한 패키지,함수,변수 import
+import numpy as np
+import matplotlib.pyplot as plt
+
+from keras.layers import Input, Activation, Conv2D, Flatten, Dense, MaxPooling2D, Dropout, Add, LeakyReLU, UpSampling2D
+from keras.models import Model, load_model
+from keras.callbacks import ReduceLROnPlateau
+```
+
+그 뒤에 numpy를 이용해 npy파일로 만들어 놓은 x_train, x_val, y_train, y_val 파일들을 load 합니다.
+```python
+x_train = np.load('dataset/x_train.npy')
+y_train = np.load('dataset/y_train.npy')
+x_val = np.load('dataset/x_val.npy')
+y_val = np.load('dataset/y_val.npy')
+```
+각각을 살펴보면 다음과 같이 나온다.
+
+<p align="center"><img src="https://github.com/Changhyun-song/Changhyun-song.github.io/blob/main/_posts/images/medical_ai/medical_ai1/medicalai1-7.png?raw=1" width = "800" ></p>
+
+train data 240개 val data는 27개씩 있다.
+
+인공지능 모델로 사용하는 것은 **Convolutional Encoder-Decoder** 이다.
+간단하게 말하면 CNN으로 이루어진 인코더-디코더 형태이다.
+
+<p align="center"><img src="https://github.com/Changhyun-song/Changhyun-song.github.io/blob/main/_posts/images/medical_ai/medical_ai1/medicalai1-8.png?raw=1" width = "800" ></p>
+
+Encoder는 차원을 축소해서 핵심 요소만 뽑는 것을 말하고 Decoder는 반대로 압축된 정보로부터 차원을 확장을 하면서 원하는 정보로 복원하는 것을 말한다.
+여기서 위 그림과 같이 Input에는 CT이미지를 넣고 Output에는 폐의 영역만 흰색인 마스크 이미지로 뽑을 것입니다.
+
+Encoder부분에서는 Downsampling을 하는데 CNN에서 주로 사용하는 MaxPooling2D를 사용할 것이다.
+MaxPooling2D를 통해 차원을 축소한다.
+
+Decoder부분에서는 Upsampling을 하는데 여기서 Upsampling2D는 반대로 차원을 확장하는 것이다.
+
+<p align="center"><img src="https://github.com/Changhyun-song/Changhyun-song.github.io/blob/main/_posts/images/medical_ai/medical_ai1/medicalai1-9.png?raw=1" width = "800" ></p>
+
+위와 같이 행렬이 늘어나면서 0으로 채워주는 Upsampling, 반대로 행렬이 줄어드는 Downsampling을 보여주고 있다. 물론 0으로 채우는 것 외에 다양한 Upsampling 방법이 존재한다.
+
+### 2-1. Model 구현
+```python
+#DownSampling
+inputs = Input(shape=(256,256,1))
+
+net = Conv2D(32, kernel_size=3, activation='relu', padding='same')(inputs)
+net = MaxPooling2D(pool_size=2, padding='same')(net)
+
+net = Conv2D(64, kernel_size=3, activation='relu', padding='same')(net)
+net = MaxPooling2D(pool_size=2, padding='same')(net)
+
+net = Conv2D(128, kernel_size=3, activation='relu', padding='same')(net)
+net = MaxPooling2D(pool_size=2, padding='same')(net)
+
+net = Dense(128, activation='relu')(net)
+#UpSampling
+net = UpSampling2D(size=2)(net)
+net = Conv2D(128, kernel_size=3, activation='sigmoid', padding='same')(net)
+
+net = UpSampling2D(size=2)(net)
+net = Conv2D(64, kernel_size=3, activation='sigmoid', padding='same')(net)
+
+net = UpSampling2D(size=2)(net)
+outputs = Conv2D(1, kernel_size=3, activation='sigmoid', padding='same')(net)
+
+model = Model(inputs=inputs, outputs=outputs)
+
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['acc','mse'])
+
+model.summary()
+```
+Model은 위와 같이 만들어준다. Model을 확인해보면
+
+<p align="center"><img src="https://github.com/Changhyun-song/Changhyun-song.github.io/blob/main/_posts/images/medical_ai/medical_ai1/medicalai1-10.png?raw=1" width = "800" ></p>
+Model을 확인해보면 MaxPooling2D를 통해 256,256에서 128,128으로 줄고 계속 줄어 32,32까지 줄어든다.
+그 후 Upsamping2D를 통해 256,256 까지 차원을 다시 확장한다.
+이제 Training을 해주면 된다.
+```python
+history = model.fit(x_train, y_train, validation_data=(x_val, y_val), epochs=100, batch_size=32,callbacks=[ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=10, verbose=1,mode='auto', min_lr=1e-05)])
+```
+
+epochs를 100으로 설정한 뒤에 학습이 끝나고 loss, acc, val_loss, val_acc를 확인해본다.
+
+<p align="center"><img src="https://github.com/Changhyun-song/Changhyun-song.github.io/blob/main/_posts/images/medical_ai/medical_ai1/medicalai1-11.png?raw=1" width = "800" ></p>
+
+loss는 이상적으로 내려가는 것을 확인할 수 있고 반대로 정확도는 올라가므로 학습이 잘 된것을 확인할 수 있다.
+```python
+preds = model.predict(x_val)
+fig, ax = plt.subplots(len(x_val), 3, figsize=(10,100))
+
+for i, pred in enumerate(preds):
+    ax[i, 0].imshow(x_val[i].squeeze(), cmap='gray')       
+    ax[i, 1].imshow(y_val[i].squeeze(), cmap='gray')
+    ax[i, 2].imshow(pred.squeeze(), cmap='gray')
+```
+이제 predict를 통해 학습된 모델로 lung data를 잘 추출하는지 확인해본다.
+
+<p align="center"><img src="https://github.com/Changhyun-song/Changhyun-song.github.io/blob/main/_posts/images/medical_ai/medical_ai1/medicalai1-12.png?raw=1" width = "800" ></p>
+
+결과값을 확인해보면 맨 왼쪽은 input으로 CT 이미지이고 가운데 있는 이미지는 실제 mask된 이미지이고 맨 오른쪽에 있는 이미지는 학습된 모델이 예측한 lung data 입니다.
+두번째와 세번쨰를 비교했을 때 굉장히 비슷하게 잘 나오기 때문에 예측이 잘 된것을 확인할 수 있었다.
+
+
+
