@@ -1,10 +1,10 @@
 ---
-title: "[Paper Review] Improving Calibration for Long-Tailed Recognition (ICLR 2021)"
+title: "[Paper Review] Improving Calibration for Long-Tailed Recognition (ICLR 2021) 논문 리뷰"
 excerpt: "Calibration을 향상시킬 수 있는 다양한 방법에 대해 소개한다."
 
 date: 2021-04-26
 categories:
- - Paper
+ - Paper_Review
 tags:
   - paper_review
   - calibration
@@ -20,29 +20,21 @@ toc_sticky: true
 use_math: true
 ---
 
-안녕하세요 꼼꼼한 논문을 리뷰하는 창혀니입니다. <br>이번 포스팅에서는 ICLR 2021에 나온 ***"Improving Calibration for Long-Tailed Recognition (ICLR 2021)"***에 대해 리뷰하려고 합니다. <br>영어로 된 논문을 하나하나 자세하게 해석하며 논문의 내용을 자세하게 분석해보겠습니다.
-<br>
+> ✍🏻 이번 포스팅에서는 적은 이미지로 학습가능한 **Improving Calibration for Long-Tailed Recognition** 논문 리뷰를 꼼꼼하게 !!
 
-**_Improving Calibration for Long-Tailed Recognition, ICLR 2021_** [Link](https://arxiv.org/abs/2104.00466 "논문 링크")
-<br><br>
+- Paper : [Improving Calibration for Long-Tailed Recognition](https://arxiv.org/abs/2104.00466) (arxiv 2021 /Zhisheng Zhong, Jiequan Cui, Shu Liu, Jiaya Jia)
 
-<br>
+---
 
-<span class="page-divider">
-  <span class="one"></span>
-  <span class="two"></span>
-</span>
+## 1. Abstract
 
-<h2><center>Abstract</center></h2>
 본 논문에서는 ***Deep Neural Networks***가 ***Training Datasets*이 심한 *Class-Imbalance*가 있을 경우 성능이 저하될 수 있다**고 말하고 있다.<br><br> *Two-stage Method*를 통해 *Representation Learning*과 *Classifier learning* 성능을 향상시키긴 했지만 여전히 ***Miscalibration*이 발생**한다.<br><br> 이를 해결하기 위해 본 논문에서는 2가지 방법을 제안한다.
 <br><br>
 ***"Motivated by the fact that predicted probability distributions of classes are highly related to the numbers of class instances, we propose label-aware smoothing to deal with different degrees of over-confidence for classes and improve classifier learning.<br>For dataset bias between these two stages due to different samplers, we further propose shifted batch normalization in the decoupling framework."***
-<br><br>
-<span class="page-divider">
-  <span class="one"></span>
-  <span class="two"></span>
-</span>
-<h2><center>Introduction</center></h2>
+
+---
+
+## 2. Introduction
 많이 쓰이는 Open Dataset 같은 경우에는 일반적으로 각각의 Object, Class의 Instance 수와 관련해서 인위적으로 균형을 이루고 있다. <br><br>하지만 실제 사용되는 일반적인 데이터셋은 각각의 Class의 Instance 수가 심각하게 불균형한 ***Long-tailed Distribution***을 보여주고 있다. Long-tailed Distribution애 대해 CNN을 학습시킬 때 성능이 크게 떨어진다.
 * * *
 여기서 ***Long-tailed Distribution*** 이란?
@@ -54,9 +46,9 @@ use_math: true
 * * *
 다시 논문으로 돌아오면 최근에는 *Two-Stage Approach*를 통해서 성능이 *One-stage Method*와 비교했을 때 상당히 개선되었다.<br><br> *Two-Stage Approach*에서<br> ***Deffered Re-sampling(DRS)***과 ***Deffered Re-weighting(DRW)***방법이 있다.
 <br>
-<h5>1. 일반적인 방법으로 불균형되어 있는 Dataset을 CNN Model로 학습시킨다.</h5>
-<h5>2. DRS로 클래스 균형 리샘플링을 사용하여 데이터 세트에서 CNN을 조정한다.</h5>
-<h5>3. DRW로 클래스에 다른 weight를 할당함으로써 CNN을 조정한다.</h5>
+- 1. 일반적인 방법으로 불균형되어 있는 Dataset을 CNN Model로 학습시킨다.
+- 2. DRS로 클래스 균형 리샘플링을 사용하여 데이터 세트에서 CNN을 조정한다.
+- 3. DRW로 클래스에 다른 weight를 할당함으로써 CNN을 조정한다.
 
 본 논문에서 참고한 2가지 논문과 링크는 아래에 첨부하겠습니다.
 <br><br>
@@ -69,13 +61,15 @@ use_math: true
 <p align="center"><img src="https://github.com/Changhyun-song/Changhyun-song.github.io/blob/main/_posts/images/paper_review/paper_review1/paper_review1-2.png?raw=1" width = "800" ></p>
 <br><br>
 위 모델은 2가지의 branch로 이루어져 있다.<br>
-<h4>1. Coventional learning branch</h4>
+
+### 1. Coventional learning branch
 - Representation learning
 - 원래 ***Long-tail distribution pattern*을 그대로 학습하는 용도로 사용**된다.
 - ***Typical uniform sampler*** 사용<br><br>
 이 때 ***Typical uniform sampler***는 클래스 불균형이 있는 Dataset을 그대로 sampling 하는 것을 의미한다. 따라서 이 때 학습할 때 data가 많은 class, 즉 Head 쪽 Data가 학습이 더 많이 진행되게 되고 결과적으로 feature의 학습인 representation learning이 더 잘 되게 만든다.
 <br><br>
-<h4>2. Re-balancing branch</h4>
+
+### 2. Re-balancing branch
 - Classifier learning
 - Coventional learning branch와 달리 Tail 쪽 Data를 조금 더 많이 sampling한다. 
 - Tail class에 대한 classification accuracy를 상승시키기 위한 것이다.
@@ -87,9 +81,11 @@ use_math: true
 
 따라서 Mix-up을 했을 때, 즉 두 가지 결과를 합쳤을 때 이런 Weight가 Balance한 형태로 가장 잘 맞춰지게 된다.<br><br>
 두 번째 논문에서는 ***Two-stage decoupling Model***을 제안한다.<br> 이 모델은 ***classifier re-training(cRT)***와 ***Learnable weight scaling(LWS)***가 있다.
-<h4>1. classifier re-training(cRT)</h4>
+
+#### 1. classifier re-training(cRT)
 **Representation learning 부분을 고정**시키고 *Classifier*만 *Class Balanced* 형식으로 다시 학습시키는 방법을 이야기 한다.
-<h4>2. Learnable weight scaling(LWS)</h4>
+
+#### 2. Learnable weight scaling(LWS)
 *Scaling* 하는 정도는 학습을 통해서 얻는 방법을 의미한다.
 <br><br>
 ***Confidence Calibration***<br>
@@ -123,12 +119,9 @@ use_math: true
 - *Dataset bias or Domain shift*를 *Decoupling Framework*에서 해결하기 위해 성능을 개선할 수 있는 ***Shift learning on the batch normalization layer***를 제안한다.<br>
 - *Long-tailed Dataset* 여러 개에서 MiSLAS를 검증하고 실험 결과를 보여준다.
 
-<br><br>
-<span class="page-divider">
-  <span class="one"></span>
-  <span class="two"></span>
-</span>
-<h2><center>Related Work</center></h2>
+---
+
+## 3. Related Work
 
 ***Re-sampling and Re-weighting***<br>
 1. *Re-samling*
@@ -176,14 +169,11 @@ use_math: true
   - ***The cumulative learning strategy***<br>
     - *bridge the representation learning and classifier re-balancing*
     - *requires dual samplers of instance-balanced and reversed instance- balanced sampler*
-<br><br>
-<span class="page-divider">
-  <span class="one"></span>
-  <span class="two"></span>
-</span>
-<h2><center>Main Approach</center></h2>
-<br>
-<h3><center>3.1. Study of mixup Strategy</center></h3>
+
+---
+
+### 3.1 Study of mixup Strategy
+
 ***Instance-balanced sampling & mixup***<br>
 *Instance-balanced sampling : **The most general representation among all for long-tailed recognition***<br>
 *mixup : **The Network trained with mixup are better calibrated***<br>
@@ -216,7 +206,9 @@ use_math: true
 
 그래서 2단계에서 *mixup*을 추가했을 때 생기는 불안정한 결과를 개선하기 위한 방법으로 다음과 같은 방법을 추가로 제안한다.<br>
 ***-> Label-aware smoothing***
-<h3><center>3.2. Label-aware smoothing</center></h3>
+
+### 3.2. Label-aware smoothing
+
 *Cross-entropy*의 최적의 솔루션과 비교하여,<br><br>***Label-aware smoothing***<br>
 - ***encourage a finite output, more general and remedying overfit***
 
@@ -232,13 +224,15 @@ use_math: true
 *cRT*와 *LWS*중에서 대규모 데이터셋에서 *LWS*가 더 좋은 결과를 주기 때문에<br>
 실험에서는 ***LWS + Label-aware smoothing***으로 결과를 확인한다. <br>
 결과는 아래 그림과 같다.
-![사진](/assets/paper_review1-10.png)
+<p align="center"><img src="https://github.com/Changhyun-song/Changhyun-song.github.io/blob/main/_posts/images/paper_review/paper_review1/paper_review1-10.png?raw=1" width = "800" ></p>
 왼쪽부터 *Head, Medium,Tail* 순으로 결과를 보여준 것이다.<br>
 (연한 파랑 : *LWS + Cross-Entropy* , 짙은 파랑 : *LWS + Label-Aware Smoothing*)
 <br><br>
 ***LWS + Cross-Entropy***의 경우엔 <br>*Head*와 *Medium*에서 실제로 1.0에 가까울 정도로 높은 *Over-confident*를 보이는 반면에,<br><br>
 ***LWS + Label-Aware Smoothing***의 경우엔 <br> *Over-confident*가 많이 감소한 것을 확인할 수 있다.<br><br>
-<h3><center>3.3. Shift Learning on Batch Normalization</center></h3>
+
+### 3.3. Shift Learning on Batch Normalization
+
 인스턴스 균형 샘플링으로 1단계에서 학습한 후 클래스 균형 샘플링으로 2단계에서 학습한다.<br><br>
 위 *Two-stage training framework*는 ***Transfer learning*의 변형**으로 볼 수 있는데<br><br>
 Transfer learning 관점에서 Two-stage training framework를 보면<br><br> backbone부분을 고정하고 Classifier를 튜닝하는 것은 unreasonable 하다. <br><br>
@@ -248,13 +242,12 @@ Transfer learning 관점에서 Two-stage training framework를 보면<br><br> ba
   - update the running mean μ and variance σ
   - fix the learnable linear transformation parameters α and β for better normalization in Stage-2
 
-<br><br>
-<span class="page-divider">
-  <span class="one"></span>
-  <span class="two"></span>
-</span>
-<h2><center>4. Experiments</center></h2>
-<h3><center>4.1. Datasets and Setup</center></h3>
+---
+
+## 4. Experiments
+
+### 4.1.1 Datasets and Setup
+
 ***1. CIFAR-10 and CIFAR-100***<br>
 50000장 Training & 10000장 Validation + 10개 카테고리 혹은 100개 카테고리<br>
 ***Long-tailed Dataset 사용***<br><br>
@@ -268,11 +261,14 @@ Transfer learning 관점에서 Two-stage training framework를 보면<br><br> ba
 ***3. iNaturalist 2018***<br>
 437500 이미지 + 8142 카테고리
 
-<h3><center>4.1.2 Implementation Details</center></h3>
+### 4.1.2 Implementation Details
+
 ***SGD optimizer with momentum = 0.9 to optimize network***<br>
 - MiSLAS model with ResNet-32 + 160~180 epochs에서 0.1로 learning rate 감소<br>
 - Use cosine learning rate -> MiSLAS model + ResNet- 10, 50, 101, 152
-<h3><center>4.2. Ablation Study</center></h3>
+
+### 4.2 Ablation Study
+
 ***Calibration performance***
 <p align="center"><img src="https://github.com/Changhyun-song/Changhyun-song.github.io/blob/main/_posts/images/paper_review/paper_review1/paper_review1-11.png?raw=1" width = "800" ></p>
 CIFAR-100-LT with IF 100 데이터셋으로 했을 때 <br>Calibration performance에 대한 결과이다.<br>
@@ -281,7 +277,9 @@ CIFAR-100-LT with IF 100 데이터셋으로 했을 때 <br>Calibration performan
 <p align="center"><img src="https://github.com/Changhyun-song/Changhyun-song.github.io/blob/main/_posts/images/paper_review/paper_review1/paper_review1-12.png?raw=1" width = "800" ></p>
 class balanced cross-entropy와 Label-aware smoothing을 비교했을 때 결과이다.<br>
 위 결과에서 알 수 있듯이 Label-aware smoothing을 했을 때 <br>***Over-confidence*도 크게 감소**하고 ***Accuracy*도 상승**하는 것을 확인할 수 있다.
-<h3><center>Result</center></h3>
+
+### 4.2.1 Result
+
 <p align="center"><img src="https://github.com/Changhyun-song/Changhyun-song.github.io/blob/main/_posts/images/paper_review/paper_review1/paper_review1-13.png?raw=1" width = "800" ></p>
 **위 결과 표를 통해 알 수 있는 점**
 - 1단계에서 mixup을 했을 때 Accuracy증가 + ECE 감소
@@ -294,7 +292,11 @@ class balanced cross-entropy와 Label-aware smoothing을 비교했을 때 결과
 전체적으로 본 논문 이전에 사용되었던 방법들이랑 비교했을 때 <br>***MiSLAS가 압도적으로 높은 Accuracy + 좋은 Calibration임을 보여준다.***
 <br>
 대규모 데이터 셋인 a,b,c에서도 MiSLAS가 높은 성능을 가지고 있는 것을 확인할 수 있다.
-<h2><center>5. Conclusion</center></h2>
+
+---
+
+### 5 Conclusion
+
 1. ***Long-tailed Dataset을 학습한 모델은*** <br>balanced dataset을 학습한 모델보다 ***miscalibrated and overconfident***
 2. 첫 번째 솔루션 - ***Mixup***
 - 1단계에서 mixup 사용 -> ***representation learning에서 좋은 효과***(classifier learning에서는 오히려 역효과)
