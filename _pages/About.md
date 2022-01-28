@@ -35,6 +35,13 @@ layout: single
 
 * 2022 . 3 . 1 ~ <br>서울대학교 영상의학과 박창민 교수님 연구실 [I-Rail연구실](http://irail.snu.ac.kr/) & 서울대학교 바이오엔지니어링 석박통합 재학중
 
+<br>
+
+<center><img src="{{ site.baseurl }}/assets/images/i-RAIL_photo.jpg" width="400" height = "400" title="Lab Picture" class="profile"></center>
+
+<br>
+
+
 <h2><center>Experience</center></h2>
 
 * 2019 . 12 ~ 2020 . 2 <br><a href="#lab1">Robotics & A.I Lab(오정현 교수님) 학부 인턴</a>
