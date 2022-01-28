@@ -37,7 +37,7 @@ layout: single
 
 <br>
 
-<center><img src="{{ site.baseurl }}/assets/images/i-RAIL_photo.jpg" width="400" height = "400" title="Lab Picture" class="profile"></center>
+<center><img src="{{ site.baseurl }}/assets/images/i-RAIL_photo.jpg" width="700" height = "400" title="Lab Picture" class="profile"></center>
 
 <br>
 
